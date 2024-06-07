@@ -1,4 +1,5 @@
-﻿using Online_Book_Store.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Online_Book_Store.Models;
 using System.Linq.Expressions;
 
 namespace Online_Book_Store.Data.Base
@@ -11,6 +12,19 @@ namespace Online_Book_Store.Data.Base
         public EntityBaseRepository(AppDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            return await query.ToListAsync();
         }
         // Ortak CRUD metotlarını biraraya toplayacağımız class/service gibi çalışcak
         // Yani VT tarafıyla konuşacak kısım
