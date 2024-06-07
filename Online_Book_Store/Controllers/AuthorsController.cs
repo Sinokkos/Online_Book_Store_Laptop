@@ -84,5 +84,30 @@ namespace Online_Book_Store.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+        // Delete
+        // Get :
+        public async Task<IActionResult> Delete(int id)
+        {
+            var authorDetails = await _service.GetByIdAsync(id); // var mı/yok mu
+
+            if (authorDetails == null) return View("NotFound");
+
+            return View(authorDetails);
+        }
+
+        // Delete
+        // Post :
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var authorDetails = _service.GetByIdAsync(id);
+
+            if (authorDetails == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
+
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

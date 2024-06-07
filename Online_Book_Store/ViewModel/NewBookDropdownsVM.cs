@@ -6,13 +6,13 @@ namespace Online_Book_Store.ViewModel
     {
         public List<Author> Authors {get; set; }
 
-        public List<Publisher> Publisher{get; set; }
+        public List<Publisher> Publishers{get; set; }
    
         public NewBookDropdownsVM() 
         {
           Authors= new List<Author>();
      
-          Publisher= new List<Publisher>();
+          Publishers= new List<Publisher>();
         
         }
     }

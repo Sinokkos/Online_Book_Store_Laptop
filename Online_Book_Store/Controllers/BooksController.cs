@@ -70,7 +70,7 @@ namespace Online_Book_Store.Controllers
         }
 
         // Edit
-        // Post :
+        // Post : Update
         [HttpPost] // View tarafından gönderilecek verileri yakalamak için
         public IActionResult Edit(int id, [Bind("Id,FullName,ProfilePictureURL,Bio")] Book book)
         {
@@ -80,6 +80,32 @@ namespace Online_Book_Store.Controllers
             }
 
             _service.UpdateAsync(id, book); // Servisde çalışacak kısım
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        // Delete
+        // Get: 
+        public async Task<IActionResult> Delete(int id)
+        {
+            var bookDetails = await _service.GetByIdAsync(id); // var mı/yok mu
+
+            if (bookDetails == null) return View("NotFound");
+
+            return View(bookDetails);
+        }
+
+        // Delete
+        // Post :
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var bookDetails = _service.GetByIdAsync(id);
+
+            if (bookDetails == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
 
             return RedirectToAction(nameof(Index));
 

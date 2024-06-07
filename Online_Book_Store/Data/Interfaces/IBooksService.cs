@@ -1,16 +1,19 @@
-﻿using Online_Book_Store.Models;
+﻿using Online_Book_Store.Data.Base;
+using Online_Book_Store.Data.Services;
+using Online_Book_Store.Models;
+using Online_Book_Store.ViewModel;
 
 namespace Online_Book_Store.Data.Interfaces
 {
-    public interface IBooksService
+    public interface IBooksService : IEntityBaseRepository<Book>
     {
-        Task <IEnumerable<Book>> GetAllAsync ();
-        Task<Book> GetByIdAsync (int id);
+        
+        Task<Book> GetBookByIdAsync (int id);
 
-        Task AddAsync (Book book);
+        Task AddNewBookAsync(NewBookVM data);
 
-        Task UpdateAsync (int id, Book book);
+        Task UpdateBookAsync(NewBookVM data);
 
-        Task DeleteAsync (int id);
+        Task<NewBookDropdownsVM> GetNewBookDropdownsValues();
     }
 }

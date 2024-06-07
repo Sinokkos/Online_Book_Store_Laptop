@@ -1,6 +1,8 @@
-﻿namespace Online_Book_Store.Models;
+﻿using Online_Book_Store.Data.Base;
 
-public class Author
+namespace Online_Book_Store.Models;
+
+public class Author : IEntityBase
 {
     public int Id { get; set; }
     public string Name { get; set; }

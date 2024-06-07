@@ -1,9 +1,12 @@
-﻿using Online_Book_Store.Data.Enum;
+﻿using Online_Book_Store.Data.Base;
+using Online_Book_Store.Data.Enum;
 
 namespace Online_Book_Store.Models
 {
-    public class Book
+    public class Book : IEntityBase
     {
+        internal BookCategory BookCategory;
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
